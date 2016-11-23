@@ -1,0 +1,71 @@
+<div class="image-header text-center" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= 'https://unsplash.it/1200?image=' + (@restaurant.id * 10).to_s%>)">
+  <h1><%= @restaurant.name %></h1>
+</div>
+
+<div class="white-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+          <ul style="list-style-type: none !important; line-height: 30px">
+            <li><i class="fa fa-globe"></i><%='  ' + @restaurant.category.capitalize %></li>
+            <li><i class="fa fa-location-arrow"></i><%='  ' +  @restaurant.address %></li>
+            <li><i class="fa fa-phone"></i><%='  ' +  @restaurant.phone_number %></li>
+          </ul>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-1">
+
+        <div class="booking-form">
+        <%= link_to "Add Review", new_restaurant_review_path(@restaurant), id: 'add-review', class: 'btn btn-danger btn-lg'%>
+        <br><br>
+          <form action="#">
+            <h4 class="text-center">Book this restaurant</h4>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Date" id="date">
+              <input type="text" class="form-control" placeholder="Time" id="time">
+              <div class="form-group">
+                <select name="" id="nb" class="form-control">
+                  <option value="1">1 people</option>
+                  <option value="2">2 peoples</option>
+                  <option value="3">3 peoples</option>
+                  <option value="4">4 peoples</option>
+                </select>
+              </div>
+              <input type="submit" class="btn btn-danger btn-lg" value="Book" style="width: 100%">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="gray-wrapper border-top">
+  <div class="container">
+    <h3>Reviews</h3>
+    <div class="row">
+      <% if @restaurant.reviews.length == 0 %>
+        <p>No reviews yet!</p>
+      <% else %>
+        <ul>
+        <% average_rating = 0 %>
+        <%@restaurant.reviews.each do |review| %>
+          <% star_word = review.rating > 1 ? 'stars' : 'star' %>
+          <% average_rating += review.rating %>
+          <li><strong><%=review.rating%> <%=star_word%>: </strong><%=review.content%></li>
+        <% end %>
+        </ul>
+        <p><strong>Average rating: </strong> <%=(average_rating / @restaurant.reviews.length.to_f).round(1)%> stars</p>
+        <% (average_rating / @restaurant.reviews.length.to_f).round.times do |val| %>
+          <i class="fa fa-star" style="color: #ffb400"></i>
+        <% end %>
+        <% (5 - (average_rating / @restaurant.reviews.length.to_f).round).times do |val| %>
+          <i class="fa fa-star" style="color: gray"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+

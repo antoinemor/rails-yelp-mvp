@@ -14,5 +14,13 @@
     category: ["chinese", "italian", "japanese", "french", "belgian"].sample
   )
   restaurant.save!
+end
 
+50.times do
+  review = Review.new(
+    content: Faker::Lorem.paragraph,
+    rating: (0..5).to_a.sample,
+    restaurant_id: (1..10).to_a.sample
+  )
+  review.save!
 end

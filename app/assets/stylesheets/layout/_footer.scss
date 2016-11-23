@@ -1,1 +1,16 @@
 // Your footer style
+/* Footer design */
+.footer {
+  background-color: gray;
+  padding: 20px 0;
+  color: white;
+  font-size: 10px;
+  i {
+    font-size: 30px;
+    margin: 0 10px;
+    color: white;
+    &:hover{
+      color: red;
+    }
+  }
+}
